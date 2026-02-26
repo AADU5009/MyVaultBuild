@@ -13,18 +13,12 @@ jobs:
           sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev patch m4 texinfo
           pip3 install --user --upgrade Cython==0.29.33 buildozer
 
-      - name: Force Accept Licenses
-        run: |
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
-          # This command finds the SDK manager and says YES to everything
-          yes | sdkmanager --licenses || true
-
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:~/.local/bin
-          # We use a stable build tool version in the command to avoid '37-rc1'
-          buildozer android debug
+          # This combines the 'yes' pipe DIRECTLY with the build command
+          # It will auto-answer 'y' to the licenses AND the SDK installs
+          yes | buildozer android debug
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
