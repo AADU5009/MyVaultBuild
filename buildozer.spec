@@ -1,4 +1,5 @@
 [app]
+
 # (str) Title of your application
 title = My Vault App
 
