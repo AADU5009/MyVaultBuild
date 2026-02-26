@@ -20,7 +20,7 @@ version = 0.1
 
 # (list) Application requirements
 # CRITICAL: You must include flet here!
-requirements = python3, flet
+requirements = python3,flet
 
 # (str) Supported orientations
 orientation = portrait
