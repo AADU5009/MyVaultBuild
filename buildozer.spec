@@ -35,7 +35,7 @@ android.api = 33
 android.minapi = 21
 
 # (str) Android NDK version to use
-android.ndk = 25b
+android.ndk = 25c
 
 # (bool) Use the private storage for the app
 android.private_storage = True
