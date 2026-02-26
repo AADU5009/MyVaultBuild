@@ -10,14 +10,15 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          # Changed libtinfo5 to libtinfo6 for Ubuntu 24.04 compatibility
-          sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev
+          # Added patch, m4, and texinfo which are often missing on Ubuntu 24
+          sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev patch m4 texinfo
           pip3 install --user --upgrade Cython==0.29.33 buildozer
 
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:~/.local/bin
-          yes | buildozer android debug
+          # We use 'buildozer android debug' but skip the 'yes |' if it causes a pipe error
+          buildozer android debug || buildozer android debug
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
